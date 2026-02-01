@@ -5,27 +5,27 @@ public class Calculator {
     // Code Smell: Long method + high complexity
     // EVEN WORSE: longer, more complex, duplicated logic
     public int calculate(int a, int b, String op) {
-        if (op.equals("add")) {
+        if(op.equals("add")) {
             return a + b;
-        } else if (op.equals("add-again")) {
+        } else if(op.equals("add-again")) {
             return a + b; // DUPLICATION
-        } else if (op.equals("sub")) {
+        } else if(op.equals("sub")) {
             return a - b;
-        } else if (op.equals("sub-again")) {
+        } else if(op.equals("sub-again")) {
             return a - b; // DUPLICATION
-        } else if (op.equals("mul")) {
+        } else if(op.equals("mul")) {
             return a * b;
-        } else if (op.equals("div")) {
-            if (b == 0) {
-                return 0;
-            } else {
-                return a / b;
-            }
-        } else if (op.equals("mod")) {
+        } else if(op.equals("div")) {
+        if(b == 0) {
+            return 0;
+        } else {
+            return a / b;
+        }
+        } else if(op.equals("mod")) {
             return a % b;
-        } else if (op.equals("pow")) {
+        } else if(op.equals("pow")) {
             int result = 1;
-            for (int i = 0; i < b; i++) {
+            for(int i = 0; i < b; i++) {
                 result = result * a;
             }
             return result;
@@ -47,5 +47,4 @@ public class Calculator {
     public int addAgain(int a, int b) {
         return a + b;
     }
-
 }
