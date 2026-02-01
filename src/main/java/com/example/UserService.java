@@ -1,5 +1,6 @@
 package main.java.com.example;
 
+import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
@@ -30,7 +31,7 @@ public class UserService {
     }
 
     // EVEN WORSE: another SQL injection
-    public void deleteUser(String username) throws SQLException {
+    public void deleteUser(String username) throws IllegalArgumentException {
     String sql = "DELETE FROM users WHERE name = ?";
 
     try (Connection conn = DriverManager.getConnection(
