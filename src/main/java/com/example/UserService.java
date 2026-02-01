@@ -30,14 +30,16 @@ public class UserService {
     }
 
     // EVEN WORSE: another SQL injection
-    public void deleteUser(String username) throws Exception {
-        Connection conn =
-        DriverManager.getConnection("jdbc:mysql://localhost/db",
-        "root", password);
-        Statement st = conn.createStatement();
-        String query =
-        "DELETE FROM users WHERE name = '" + username + "'";
-        st.execute(query);
+    public void deleteUser(String username) throws SQLException {
+    String sql = "DELETE FROM users WHERE name = ?";
+
+    try (Connection conn = DriverManager.getConnection(
+                "jdbc:mysql://localhost/db", "root", password);
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+
+        ps.setString(1, username);
+        ps.executeUpdate();
     }
+}
 
 }
