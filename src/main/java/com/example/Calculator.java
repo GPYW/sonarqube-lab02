@@ -31,7 +31,7 @@ public class Calculator {
             return result;
         } else {
             return 0;
-        }
+        } 
     }
 
     // Code Duplication (students must remove)
