@@ -3,6 +3,8 @@ package main.java.com.example;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class UserService {
 
@@ -28,4 +30,23 @@ public class UserService {
     public void notUsed() {
         System.out.println("I am never called");
     }
+
+    // EVEN WORSE: another SQL injection
+    public void deleteUser(String username) throws SQLException {
+    String query = "DELETE FROM users WHERE name = ?";
+    String url = "jdbc:mysql://localhost/db";
+
+    // Try-with-resources automatically closes Connection and PreparedStatement
+    try (Connection conn = DriverManager.getConnection(url, "root", password);
+         PreparedStatement pstmt = conn.prepareStatement(query)) {
+        
+        pstmt.setString(1, username);
+        pstmt.executeUpdate();
+        
+    } catch (SQLException e) {
+        // Log the error or rethrow a custom exception
+        throw new SQLException("Error deleting user: " + username, e);
+    }
+}
+
 }
